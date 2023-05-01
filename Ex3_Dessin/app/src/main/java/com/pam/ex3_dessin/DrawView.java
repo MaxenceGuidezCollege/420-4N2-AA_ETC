@@ -105,7 +105,15 @@ public class DrawView extends View {
 
             for(Point pointInLine : pl.points){
                 if(pointInLine != pl.points.get(0)){
-                    canvas.drawLine(lastPoint.x, lastPoint.y, pointInLine.x, pointInLine.y, linePaint);
+                    Paint re = new Paint();
+                    re.setColor(Color.RED);
+                    if(pl.getPaint().equals(re)){
+                        canvas.drawLine(lastPoint.x, lastPoint.y, pointInLine.x, pointInLine.y, flingPaint);
+                    }
+                    else{
+                        canvas.drawLine(lastPoint.x, lastPoint.y, pointInLine.x, pointInLine.y, linePaint);
+                    }
+
                 }
                 lastPoint = pointInLine;
             }
@@ -132,6 +140,22 @@ public class DrawView extends View {
                         lines.add(current);
                     }
                     else{
+                        Point last = current.last();
+                        Point actual = new Point(event);
+
+                        if(actual.x >= last.x + 10 || actual.y >= last.y + 10){
+                            Paint re = new Paint();
+                            re.setColor(Color.RED);
+                            current = new Polyline(event, re);
+                            lines.add(current);
+                        }
+//                        else{
+//                            Paint bl = new Paint();
+//                            bl.setColor(Color.BLACK);
+//                            current = new Polyline(event, bl);
+//                            lines.add(current);
+//                        }
+
                         current.add(event);
                     }
                     invalidate();

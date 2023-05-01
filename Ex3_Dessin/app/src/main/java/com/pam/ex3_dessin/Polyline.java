@@ -36,4 +36,12 @@ class Polyline implements CanvasElement {
     public void add(Point p) {
         points.add(p);
     }
+
+    public void setPaint(Paint paint) {
+        this.paint = paint;
+    }
+
+    public Paint getPaint() {
+        return paint;
+    }
 }

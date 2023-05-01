@@ -26,6 +26,15 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    flavorDimensions 'version'
+    productFlavors {
+        badge {
+            dimension 'version'
+        }
+        shield {
+            dimension 'version'
+        }
+    }
 }
 
 dependencies {

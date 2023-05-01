@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Examen 1. Hiver 2023</string>
+    <string name="indeter">Indéterminé</string>
+    <string name="on">Ouvert</string>
+    <string name="off">Fermé</string>
+</resources>

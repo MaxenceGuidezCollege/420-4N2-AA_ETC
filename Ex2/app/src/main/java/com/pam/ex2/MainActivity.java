@@ -2,11 +2,15 @@ package com.pam.ex2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.AnimatorSet;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.sql.Date;
+import java.time.Instant;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
         String version = getString(R.string.version);
         String isDebug = getString(R.string.isDebug);
-        tv.setText("Version 2023(" + version + ")" + isDebug);
+        String annee = String.valueOf(Date.from(Instant.now()).getYear() + 1900);
+        tv.setText("Version " + annee + "(" + version + ")" + isDebug);
 
         logo = R.drawable.verif;
 
@@ -33,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                LogoAnimator.playAnimation(iv);
             }
         });
     }

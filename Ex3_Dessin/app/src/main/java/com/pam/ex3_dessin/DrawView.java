@@ -105,20 +105,16 @@ public class DrawView extends View {
 
             for(Point pointInLine : pl.points){
                 if(pointInLine != pl.points.get(0)){
-                    Paint re = new Paint();
-                    re.setColor(Color.RED);
-                    if(pl.getPaint().equals(re)){
+                    if(pl.getPaint().equals(flingPaint)){
                         canvas.drawLine(lastPoint.x, lastPoint.y, pointInLine.x, pointInLine.y, flingPaint);
                     }
                     else{
                         canvas.drawLine(lastPoint.x, lastPoint.y, pointInLine.x, pointInLine.y, linePaint);
                     }
-
                 }
                 lastPoint = pointInLine;
             }
         }
-
     }
 
     @Override
@@ -143,16 +139,13 @@ public class DrawView extends View {
                         Point last = current.last();
                         Point actual = new Point(event);
 
+                        //TODO : RAJOUTER LE TEMPS DANS LES CALCULS
                         if(actual.x >= last.x + 10 || actual.y >= last.y + 10){
-                            Paint re = new Paint();
-                            re.setColor(Color.RED);
-                            current = new Polyline(event, re);
+                            current = new Polyline(event, flingPaint);
                             lines.add(current);
                         }
 //                        else{
-//                            Paint bl = new Paint();
-//                            bl.setColor(Color.BLACK);
-//                            current = new Polyline(event, bl);
+//                            current = new Polyline(event, linePaint);
 //                            lines.add(current);
 //                        }
 

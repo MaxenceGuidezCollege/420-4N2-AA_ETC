@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (savedInstanceState != null) {
-            String _montant = savedInstanceState.getString("montant");
+            String _montant = ;
             String _tps = savedInstanceState.getString("tps");
             String _tvq = savedInstanceState.getString("tvq");
             String _total = savedInstanceState.getString("total");

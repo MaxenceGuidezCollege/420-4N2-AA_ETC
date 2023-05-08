@@ -5,7 +5,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-import java.sql.Date;
+import java.util.Date;
 
 @Entity(tableName = "connexions")
 public class Connexion {

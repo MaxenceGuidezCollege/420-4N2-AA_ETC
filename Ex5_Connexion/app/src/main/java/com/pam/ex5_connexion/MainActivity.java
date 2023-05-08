@@ -5,17 +5,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.widget.TextView;
 
 import com.pam.ex5_connexion.database.ConnexionDatabase;
 
-import java.text.DateFormat;
-import java.text.FieldPosition;
-import java.text.ParseException;
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
-import java.sql.Date;
+import java.util.Date;
 import java.time.Instant;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     private Connexion actualCo;
     private Connexion lastCo;
     private int nbrCo;
+
+    private static boolean actionExecuted = false;
 
     /**
      * Au démarrage de l'application, on initialise l'accès à la base de données.
@@ -54,6 +53,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initDatabase();
 
+        if (!actionExecuted) {
+
+            actualCo = new Connexion(Date.from(Instant.now()));
+            db.getConnexionDao().insert(actualCo);
+
+            actionExecuted = true;
+        }
+
         tv = findViewById(R.id.tv);
         nbrCo = db.getConnexionDao().countConnexion();
 
@@ -62,23 +69,13 @@ public class MainActivity extends AppCompatActivity {
         }
         else{
             lastCo = db.getConnexionDao().queryLastConnexion();
-
-//            String date = lastCo.getDate().toString();
-//            SimpleDateFormat sdf = new SimpleDateFormat("yyyyy-mm-dd hh:mm:ss");
-//            Date formate = null;
-//            try {
-//                 formate = sdf.parse(date);
-//            } catch (ParseException e) {
-//                throw new RuntimeException(e);
-//            }
+            String dateForm = DateFormater.format(lastCo.getDate());
 
             tv.setText("Vous vous êtes connecté " + (nbrCo + 1) + " fois\n" +
-                    "La dernière connexion date du " + lastCo.getDate());
+                    "La dernière connexion date du " + dateForm);
         }
 
-        java.util.Date dateU = java.util.Date.from(Instant.now());
-        actualCo = new Connexion(new Date(dateU.getTime()));
-        db.getConnexionDao().insert(actualCo);
+
     }
 
     /**
@@ -91,4 +88,5 @@ public class MainActivity extends AppCompatActivity {
                 .fallbackToDestructiveMigration()
                 .build();
     }
+
 }

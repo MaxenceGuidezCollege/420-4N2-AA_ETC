@@ -2,7 +2,7 @@ package com.pam.ex5_connexion;
 
 import androidx.room.TypeConverter;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class ConnexionConverter {
 

@@ -7,7 +7,6 @@ import androidx.room.Query;
 
 import com.pam.ex5_connexion.Connexion;
 
-import java.util.Date;
 import java.util.List;
 
 @Dao

@@ -26,9 +26,9 @@ public class MainActivity extends AppCompatActivity {
         double _tps = TaxCalculator.calcTps(val);
         double _tvq = TaxCalculator.calcTvq(val);
 
-        total.setText(_total / 100.0 + "");
-        tps.setText(_tps / 100.0 + "");
-        tvq.setText(_tvq / 100.0 + "");
+        total.setText(_total + "");
+        tps.setText(_tps + "");
+        tvq.setText(_tvq + "");
     }
 
     @Override
@@ -47,17 +47,7 @@ public class MainActivity extends AppCompatActivity {
             current = montant.getText().toString();
         });
 
-        montant.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // Not used
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Not used
-            }
-
+        montant.addTextChangedListener(new TextWatcherAdapter() {
             @Override
             public void afterTextChanged(Editable s) {
                 // Check if the input has more than 2 decimal places
@@ -76,10 +66,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (savedInstanceState != null) {
+            String _montant = savedInstanceState.getString("montant");
             String _tps = savedInstanceState.getString("tps");
             String _tvq = savedInstanceState.getString("tvq");
+            String _total = savedInstanceState.getString("total");
+            montant.setText(_montant);
             tvq.setText(_tvq);
             tps.setText(_tps);
+            total.setText(_total);
         } else {
             montant.setText("10");
             calc();
@@ -90,7 +84,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+        outState.putString("montant", montant.getText().toString());
         outState.putString("tps", tps.getText().toString());
         outState.putString("tvq", tvq.getText().toString());
+        outState.putString("total", total.getText().toString());
     }
 }
